@@ -4,6 +4,7 @@ import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
 import { Plus } from "lucide-react";
 import React from "react";
 import MobileSidebar from "./mobile-sidebar";
+import Link from "next/link";
 
 const Navbar = () => {
   return (
@@ -11,7 +12,7 @@ const Navbar = () => {
       className="fixed z-50 top-0 px-4 w-full h-14 border-b shadow-sm
     bg-white flex items-center "
     >
-      <MobileSidebar/>
+      <MobileSidebar />
       <div className="flex items-center gap-x-4">
         <div className="hidden md:flex">
           <Logo />
@@ -27,9 +28,12 @@ const Navbar = () => {
         <Button
           variant="primary"
           size="sm"
-          className="rounded-sm block md:hidden"
+          className="rounded-sm flex md:hidden items-center justify-center "
+          asChild
         >
-          <Plus className="h-4 w-4" />
+          <Link href="/select-org">
+            <Plus className="h-4 w-4" />
+          </Link>
         </Button>
       </div>
       <div className="ml-auto flex items-center gap-x-2">

@@ -14,7 +14,7 @@ const OrgControl = () => {
         organization: params.organizationId as string,
     })
   }, [setActive, params.organizationId]);
-  return <div>OrgControl</div>;
+  return <div></div>;
 };
 
 export default OrgControl;
