@@ -1,6 +1,4 @@
 import React from "react";
-import { create } from "@/actions/create-board";
-import { Button } from "@/components/ui/button";
 import { db } from "@/lib/db";
 import Board from "./board";
 import { Form } from "./form";
@@ -14,7 +12,6 @@ const OrganizationIdPage = async () => {
         {boards.map((board) => (
           <Board key={board.id} title={board.title} id={board.id} />
         ))}
-        
       </div>
     </div>
   );
