@@ -1,4 +1,3 @@
-import { handler } from "tailwindcss-animate";
 import { z } from "zod";
 
 export type FieldErrors<T> = {
@@ -13,17 +12,17 @@ export type ActionState<TInput, TOutput> = {
 
 export const createSafeAction = <TInput, TOutput>(
   schema: z.Schema<TInput>,
-  handler: (validateData: TInput) => Promise<ActionState<TInput, TOutput>>
+  handler: (validatedData: TInput) => Promise<ActionState<TInput, TOutput>>
 ) => {
   return async (data: TInput): Promise<ActionState<TInput, TOutput>> => {
-    const validateFields = schema.safeParse(data);
-    if (!validateFields.success) {
+    const validationResult = schema.safeParse(data);
+    if (!validationResult.success) {
       return {
-        fieldErrors: validateFields.error.flatten()
+        fieldErrors: validationResult.error.flatten()
           .fieldErrors as FieldErrors<TInput>,
-        error: "Missing fields",
       };
     }
-    return await handler(validateFields.data);
+
+    return handler(validationResult.data);
   };
 };
