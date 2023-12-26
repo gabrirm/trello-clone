@@ -3,12 +3,10 @@
 import { useFormStatus } from "react-dom";
 
 import { cn } from "@/lib/utils";
-
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 
 interface FormSubmitProps {
   children: React.ReactNode;
-  label?: string;
   disabled?: boolean;
   className?: string;
   variant?:
@@ -16,8 +14,8 @@ interface FormSubmitProps {
     | "destructive"
     | "outline"
     | "secondary"
-    | "link"
     | "ghost"
+    | "link"
     | "primary";
 }
 
@@ -25,11 +23,18 @@ export const FormSubmit = ({
   children,
   disabled,
   className,
-  variant,
+  variant = "primary",
 }: FormSubmitProps) => {
   const { pending } = useFormStatus();
+
   return (
-    <Button disabled={disabled} className={cn(className)} variant={variant}>
+    <Button
+      disabled={pending || disabled}
+      type="submit"
+      variant={variant}
+      size="sm"
+      className={cn(className)}
+    >
       {children}
     </Button>
   );

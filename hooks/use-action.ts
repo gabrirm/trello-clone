@@ -14,7 +14,7 @@ interface UseActionOptions<TOutput> {
 
 export const useAction = <TInput, TOutput>(
   action: Action<TInput, TOutput>,
-  options: UseActionOptions<TOutput>
+  options: UseActionOptions<TOutput> = {}
 ) => {
   const [fieldErrors, setFieldErrors] = useState<
     FieldErrors<TInput> | undefined
@@ -26,9 +26,14 @@ export const useAction = <TInput, TOutput>(
   const execute = useCallback(
     async (input: TInput) => {
       setIsLoading(true);
+
       try {
         const result = await action(input);
-        if (!result) return;
+
+        if (!result) {
+          return;
+        }
+
         setFieldErrors(result.fieldErrors);
 
         if (result.error) {
@@ -47,5 +52,12 @@ export const useAction = <TInput, TOutput>(
     },
     [action, options]
   );
-  return { fieldErrors, error, data, isLoading, execute };
+
+  return {
+    execute,
+    fieldErrors,
+    error,
+    data,
+    isLoading,
+  };
 };

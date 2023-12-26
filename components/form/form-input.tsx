@@ -1,10 +1,12 @@
 "use client";
 
 import { forwardRef } from "react";
-import { useFormState, useFormStatus } from "react-dom";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
+import { useFormStatus } from "react-dom";
+
 import { cn } from "@/lib/utils";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+
 import { FormErrors } from "./form-errors";
 
 interface FormInputProps {
@@ -31,32 +33,34 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
       disabled,
       errors,
       className,
-      defaultValue,
+      defaultValue = "",
       onBlur,
     },
     ref
   ) => {
     const { pending } = useFormStatus();
+
     return (
       <div className="space-y-2">
         <div className="space-y-1">
-          {label && (
+          {label ? (
             <Label
               htmlFor={id}
-              className="block text-xs font-semibold text-neutral-700"
+              className="text-xs font-semibold text-neutral-700"
             >
               {label}
             </Label>
-          )}
+          ) : null}
           <Input
             onBlur={onBlur}
             defaultValue={defaultValue}
             ref={ref}
             required={required}
-            disabled={disabled || pending}
+            name={id}
             id={id}
-            type={type}
             placeholder={placeholder}
+            type={type}
+            disabled={pending || disabled}
             className={cn("text-sm px-2 py-1 h-7", className)}
             aria-describedby={`${id}-error`}
           />
