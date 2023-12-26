@@ -21,6 +21,8 @@ export const Info = (props: InfoProps) => {
           src={organization?.imageUrl!}
           alt="Organization"
           className="rounded-md object-cover"
+          priority={true}
+          sizes="60px"
         />
       </div>
       <div className="space-y-1">

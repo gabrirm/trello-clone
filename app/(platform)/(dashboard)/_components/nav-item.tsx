@@ -76,6 +76,7 @@ const NavItem = ({
               src={organization.imageUrl}
               alt="Organization"
               className="rounded-sm object-cover"
+              sizes="30px"
             />
           </div>
           <span className="font-medium text-sm">{organization.name}</span>
