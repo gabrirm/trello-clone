@@ -1,6 +1,16 @@
 import React from "react";
 import { Sidebar } from "../_components/sidebar";
 
+import { startCase } from "lodash";
+import { auth } from "@clerk/nextjs";
+
+export async function generateMetadata() {
+  const { orgSlug } = auth();
+  return {
+    title: startCase(orgSlug || "organization"),
+  };
+}
+
 export default function OrganizationLayout({
   children,
 }: {
